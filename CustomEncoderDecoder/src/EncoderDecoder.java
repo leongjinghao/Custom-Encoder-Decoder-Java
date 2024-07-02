@@ -18,6 +18,30 @@ public class EncoderDecoder implements EncoderDecoderInterface {
 	public void setOffsetChar(char offsetChar) {
 		this.offsetChar = offsetChar;
 	}
+	
+	private char getEncodedChar(char ch, int offsetIndex) {
+		int originalCharIndex = referenceTable.indexOf(ch);
+		int referenceTableLen = referenceTable.length();
+		
+		if (originalCharIndex == -1) {
+			return ch;
+		}
+
+        int newIndex = (originalCharIndex - offsetIndex + referenceTableLen) % referenceTableLen;
+        return referenceTable.charAt(newIndex);
+	}
+	
+	private char getDecodedChar(char ch, int offsetIndex) {
+		int originalCharIndex = referenceTable.indexOf(ch);
+		int referenceTableLen = referenceTable.length();
+		
+		if (originalCharIndex == -1) {
+			return ch;
+		}
+
+        int newIndex = (originalCharIndex + offsetIndex) % referenceTableLen;
+        return referenceTable.charAt(newIndex);
+	}
 
 	@Override
 	public String encode(String plainText) {
@@ -26,21 +50,12 @@ public class EncoderDecoder implements EncoderDecoderInterface {
         }
 		
 		int offsetIndex = referenceTable.indexOf(offsetChar);
-		int referenceTableLen = referenceTable.length();
         StringBuilder encodedText = new StringBuilder();
+        
         encodedText.append(offsetChar);
         
-        // compute each char after offset with wrap around logic, if char not in ref table, map char back to itself
         for (char ch : plainText.toCharArray()) {
-            int originalCharIndex = referenceTable.indexOf(ch);
-            
-            if (originalCharIndex != -1) {
-                int newIndex = (originalCharIndex - offsetIndex + referenceTableLen) % referenceTableLen;
-                encodedText.append(referenceTable.charAt(newIndex));
-            }
-            else {
-            	encodedText.append(ch);
-            }
+        	encodedText.append(getEncodedChar(ch, offsetIndex));
         }
         
         return encodedText.toString();
@@ -54,19 +69,10 @@ public class EncoderDecoder implements EncoderDecoderInterface {
 		
 		char offset = encodedText.charAt(0);
         int offsetIndex = referenceTable.indexOf(offset);
-		int referenceTableLen = referenceTable.length();
         StringBuilder decodedText = new StringBuilder();
         
         for (char ch : encodedText.substring(1).toCharArray()) {
-            int originalCharIndex = referenceTable.indexOf(ch);
-            
-            if (originalCharIndex != -1) {
-                int newIndex = (originalCharIndex + offsetIndex) % referenceTableLen;
-                decodedText.append(referenceTable.charAt(newIndex));
-            }
-            else {
-            	decodedText.append(ch);
-            }
+        	decodedText.append(getDecodedChar(ch, offsetIndex));
         }
         
         return decodedText.toString();
