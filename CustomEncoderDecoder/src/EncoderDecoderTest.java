@@ -40,5 +40,27 @@ class EncoderDecoderTest {
         String decodedText = encoderDecoder.decode("FC/GGJ RJMG.");
         assertEquals("HELLO WORLD", decodedText);
     }
+    
+    @Test
+    public void testEncodeWithoutSettingReferenceTable() {
+        EncoderDecoder encoderDecoderWithoutTable = new EncoderDecoder();
+        assertThrows(IllegalStateException.class, () -> {
+            encoderDecoderWithoutTable.encode("HELLO WORLD");
+        });
+    }
+    
+    @Test
+    public void testSetReferenceTableWithNull() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            encoderDecoder.setReferenceTable(null);
+        });
+    }
+    
+    @Test
+    public void testSetOffsetCharNotInReferenceTable() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            encoderDecoder.setOffsetChar('!');
+        });
+    }
 
 }

@@ -8,6 +8,10 @@ public class EncoderDecoder implements EncoderDecoderInterface {
 	}
 
 	public void setReferenceTable(String referenceTable) {
+		if (referenceTable == null || referenceTable.isEmpty()) {
+            throw new IllegalArgumentException("Reference table cannot be null or empty.");
+        }
+		
 		this.referenceTable = referenceTable;
 	}
 	
@@ -16,6 +20,10 @@ public class EncoderDecoder implements EncoderDecoderInterface {
 	}
 
 	public void setOffsetChar(char offsetChar) {
+		if (referenceTable == null || referenceTable.indexOf(offsetChar) == -1) {
+            throw new IllegalArgumentException("Offset character must be in the reference table.");
+        }
+		
 		this.offsetChar = offsetChar;
 	}
 	
