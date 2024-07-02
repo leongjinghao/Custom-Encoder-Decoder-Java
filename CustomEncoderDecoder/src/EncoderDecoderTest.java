@@ -50,6 +50,28 @@ class EncoderDecoderTest {
     }
     
     @Test
+    public void testDecodeWithoutSettingReferenceTable() {
+        EncoderDecoder encoderDecoderWithoutTable = new EncoderDecoder();
+        assertThrows(IllegalStateException.class, () -> {
+            encoderDecoderWithoutTable.decode("BGDKKN VNQKC");
+        });
+    }
+    
+    @Test
+    public void testEncodeWithoutSettingOffsetChar() {
+        assertThrows(IllegalStateException.class, () -> {
+            encoderDecoder.encode("HELLO WORLD");
+        });
+    }
+    
+    @Test
+    public void testDecodeWithoutSettingOffsetChar() {
+        assertThrows(IllegalStateException.class, () -> {
+            encoderDecoder.decode("BGDKKN VNQKC");
+        });
+    }
+    
+    @Test
     public void testSetReferenceTableWithNull() {
         assertThrows(IllegalArgumentException.class, () -> {
             encoderDecoder.setReferenceTable(null);

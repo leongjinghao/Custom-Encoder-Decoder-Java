@@ -68,12 +68,15 @@ public class EncoderDecoder implements EncoderDecoderInterface {
      * Encodes the given plain text using the set reference table and offset character.
      * @param plainText The plain text to encode.
      * @return The encoded text.
-     * @throws IllegalStateException if the reference table is not set.
+     * @throws IllegalStateException if the reference table or offset character is not set or empty.
      */
 	@Override
 	public String encode(String plainText) {
 		if (referenceTable == null || referenceTable.isEmpty()) {
             throw new IllegalStateException("Reference table not set.");
+        }
+		if (offsetChar == '\u0000') {
+            throw new IllegalStateException("Offset character not set.");
         }
 		
 		int offsetIndex = referenceTable.indexOf(offsetChar);
@@ -93,12 +96,15 @@ public class EncoderDecoder implements EncoderDecoderInterface {
      * The first character of the encoded text is used as the offset character.
      * @param encodedText The encoded text to decode.
      * @return The decoded plain text.
-     * @throws IllegalStateException if the reference table is not set.
+     * @throws IllegalStateException if the reference table or offset character is not set or empty.
      */
 	@Override
 	public String decode(String encodedText) {
 		if (referenceTable == null || referenceTable.isEmpty()) {
             throw new IllegalStateException("Reference table not set.");
+        }
+		if (offsetChar == '\u0000') {
+            throw new IllegalStateException("Offset character not set.");
         }
 		
 		char offset = encodedText.charAt(0);
