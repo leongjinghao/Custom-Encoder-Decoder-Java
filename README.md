@@ -26,7 +26,6 @@ The EncoderDecoder application is a Java-based program that encodes and decodes 
 - **Custom Reference Table**: Allows users to set a custom reference table for encoding and decoding operations.
 - **Offset Character Validation**: Ensures the offset character is valid and present in the reference table.
 - **Interactive CLI**: Provides a straightforward command-line interface for user interaction.
-- **User-Friendly GUI**: Offers a graphical user interface with text input fields and buttons for encoding and decoding operations.
 - **Robust Error Handling**: Handles invalid inputs gracefully, providing informative error messages to the user.
 - **Unit Tests**: Comprehensive unit tests to ensure the reliability and correctness of the encoding and decoding logic.
 
