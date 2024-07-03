@@ -9,6 +9,6 @@ Components:
 
 # Usage
 ![image](https://github.com/leongjinghao/Custom-Encoder-Decoder-Java/assets/73938217/dd3807b9-437b-48d3-b15c-f1b71f41b6a5)
-1. Execute main function in CustomEncoderDecoder class
+1. CLI app executable from the main function in CustomEncoderDecoder class
 2. Select the option to perform, note that the reference table and offset character should be configured prior to encoding and decoding
 3. Review output shown
